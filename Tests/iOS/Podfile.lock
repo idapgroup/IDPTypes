@@ -1,0 +1,22 @@
+PODS:
+  - IDPTypes (0.1.0)
+  - Nimble (5.1.1)
+  - Quick (1.0.0)
+
+DEPENDENCIES:
+  - IDPTypes (from `../..`)
+  - Nimble (~> 5.1.1)
+  - Quick (~> 1.0.0)
+
+EXTERNAL SOURCES:
+  IDPTypes:
+    :path: "../.."
+
+SPEC CHECKSUMS:
+  IDPTypes: 42a8e62bbc007a40f64a301e1215a85b6bc336ef
+  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
+  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
+
+PODFILE CHECKSUM: ef43a50a92e827fdb0d0015e882e0e822c4c27b1
+
+COCOAPODS: 1.2.0
