@@ -71,7 +71,7 @@ public func weakify<Wrapped: AnyObject>(_ value: Wrapped, execute: (Weak<Wrapped
 }
 
 /// Class protocol for weakification.
-protocol Weakifiable: class { }
+public protocol Weakifiable: class { }
 
 extension Weakifiable {
     /// Returns weakified self
@@ -81,3 +81,44 @@ extension Weakifiable {
 }
 
 extension NSObject: Weakifiable { }
+
+/**
+ Weakifies type function call.
+ 
+ - Parameters:
+    - function: Type function of type (Type) -> (Tuple) -> Result, where Tuple is arguments for object function call.
+    - object: Object to pass to type function for weakification.
+    - default: Value to return in case object was deallocated.
+ 
+ - Returns: Function, capturing weakified object type function call.
+ */
+public func weakify<Value: AnyObject, Arguments, Result>(
+    _ function: @escaping (Value) -> (Arguments) -> Result,
+    object: Value,
+    default value: Result
+)
+    -> (Arguments) -> Result
+{
+    return { [weak object] arguments in
+        object.map { function($0)(arguments) } ?? value
+    }
+}
+
+/**
+ Weakifies type function call.
+ 
+ - Parameters:
+    - function: Type function of type (Type) -> (Tuple) -> Result, where Tuple is arguments for object function call.
+    - object: Object to pass to type function for weakification.
+ 
+ - Returns: Function, capturing weakified object type function call.
+ */
+public func weakify<Value: AnyObject, Arguments>(
+    _ function: @escaping (Value) -> (Arguments) -> (),
+    object: Value
+)
+    -> (Arguments) -> ()
+{
+    return weakify(function, object: object, default: ())
+}
+
